@@ -1,4 +1,4 @@
-from ssdb_client import SsdbClient
+from py_ssdb_client import SsdbClient
 
 
 def run_test_simple_kv(client: SsdbClient):
@@ -32,19 +32,21 @@ def run_test_simple_kv(client: SsdbClient):
 
 def run_test_hash(client: SsdbClient):
     print('=========HASH TESTING===========')
-    client.multi_hset('hash', {'a': 34, 'b': 14, 'c': 100})
-    client.hset('hash', 's', 33)
+    name = "hash"
 
-    result = client.multi_hget('hash', ['a', 'c', 's'])
+    client.multi_hset(name, {'a': 34, 'b': 14, 'c': 100})
+    client.hset(name, 's', 33)
+
+    result = client.multi_hget(name, ['a', 'c', 's'])
     print(f'multi_hget: {result}')
     result = client.multi_hget('hash15', ['a', 'c'])
     print(f'multi_hget: {result}')
 
-    result = client.hdel('hash', 's')
-    result = client.hget('hash', 's')
+    result = client.hdel(name, 's')
+    result = client.hget(name, 's')
     print(f'hget: {int(result) if result is not None else ""}')
 
-    result = client.hsize('hash')
+    result = client.hsize(name)
     print(f'hsize: {int(result) if result is not None else ""}')
 
     result = client.hsize('hash15')
@@ -59,6 +61,12 @@ def run_test_hash(client: SsdbClient):
     client.hincr('hash_incr', 'a', 100)
     result = client.hget('hash_incr', 'a')
     print(f'hash_incr: {int(result) if result is not None else ""}')
+
+    result = client.hkeys(name,'a', 'z', 10)
+    print(f'hkeys: {result if result is not None else ""}')
+
+    result = client.hgetall(name)
+    print(f'hgetall: {result if result is not None else ""}')
 
 
 def run_test_sorted_set(client: SsdbClient):

@@ -1,7 +1,7 @@
 from typing import List, Dict, Optional
 
-from base_ssdb import BaseSsdb
-from utils import SsdbResponseUtils
+from .base_ssdb import BaseSsdb
+from .utils import SsdbResponseUtils
 
 
 class BaseSsdbKV(BaseSsdb):

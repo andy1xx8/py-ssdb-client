@@ -1,12 +1,20 @@
 from typing import List, Dict, Optional
 
-from base_ssdb import BaseSsdb
-from utils import SsdbResponseUtils
+from .base_ssdb import BaseSsdb
+from .utils import SsdbResponseUtils
 
 
 class BaseSsdbHash(BaseSsdb):
 
     def hincr(self, name: str, k: any, num: int) -> int:
+        """
+        Increase the given key value by num
+
+        :param name: any
+        :param k: any
+        :param num
+        :return:
+        """
         pass
 
     def hset(self, name: str, k: any, v: any):
@@ -31,6 +39,18 @@ class BaseSsdbHash(BaseSsdb):
         pass
 
     def multi_hget(self, name: str, keys: List[str]) -> Dict[bytes, bytes]:
+        pass
+
+    def hkeys(self, name: str, key_start: any, key_end: any, limit: int) -> List[bytes]:
+        pass
+
+    def hlist(self, name_start: str, name_end: str, limit: int) -> List[str]:
+        pass
+
+    def hrlist(self, name_start: str, name_end: str, limit: int) -> List[str]:
+        pass
+
+    def hgetall(self, name: str) -> Dict[bytes, bytes]:
         pass
 
 
@@ -66,4 +86,20 @@ class SsdbHash(BaseSsdbHash):
     def multi_hget(self, name: str, keys: List[str]) -> Dict[bytes, bytes]:
         result = self.execute_command('multi_hget', name, *keys)
 
+        return SsdbResponseUtils.response_to_map(result)
+
+    def hkeys(self, name: str, key_start: any, key_end: any, limit: int) -> List[bytes]:
+        result = self.execute_command('hkeys', name, key_start, key_end, limit)
+        return list(result)
+
+    def hlist(self, name_start: str, name_end: str, limit: int) -> List[str]:
+        result = self.execute_command('hlist', name_start, name_end, limit)
+        return list(result)
+
+    def hrlist(self, name_start: str, name_end: str, limit: int) -> List[str]:
+        result = self.execute_command('hrlist', name_start, name_end, limit)
+        return list(result)
+
+    def hgetall(self, name: str) -> Dict[bytes, bytes]:
+        result = self.execute_command('hgetall', name)
         return SsdbResponseUtils.response_to_map(result)

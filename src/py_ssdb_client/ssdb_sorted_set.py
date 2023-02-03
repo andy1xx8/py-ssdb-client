@@ -1,8 +1,8 @@
 from typing import List, Dict, Tuple
 
-from base_ssdb import BaseSsdb
+from .base_ssdb import BaseSsdb
+from .utils import SsdbResponseUtils
 
-from utils import SsdbResponseUtils
 
 class BaseSsdbSortedSet(BaseSsdb):
 

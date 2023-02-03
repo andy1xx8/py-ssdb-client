@@ -3,10 +3,10 @@ from typing import Dict, Union
 
 import pyssdb
 
-from ssdb_hash import SsdbHash
-from ssdb_kv import SsdbKV
-from ssdb_sorted_set import SsdbSortedSet
-from utils import SsdbResponseUtils
+from .ssdb_hash import SsdbHash
+from .ssdb_kv import SsdbKV
+from .ssdb_sorted_set import SsdbSortedSet
+from .utils import SsdbResponseUtils
 
 
 #
