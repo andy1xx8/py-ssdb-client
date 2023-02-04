@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="py-ssdb-client",
-    version="0.0.5",
+    version="0.0.6",
     author="Andy Le",
     author_email="tauit.dnmd@gmail.com",
     description="A SSDB client for Python",

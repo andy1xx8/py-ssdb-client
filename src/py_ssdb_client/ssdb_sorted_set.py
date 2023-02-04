@@ -33,6 +33,9 @@ class BaseSsdbSortedSet(BaseSsdb):
     def zdel(self, name: str, key: str):
         pass
 
+    def multi_zdel(self, name: str, keys: List[str]) -> bool:
+        pass
+
     def zclear(self, name: str):
         pass
 
@@ -96,6 +99,10 @@ class SsdbSortedSet(BaseSsdbSortedSet):
 
     def zdel(self, name: str, key: str):
         result = self.execute_command('zdel', name, key)
+
+    def multi_zdel(self, name: str, keys: List[str]) -> bool:
+        self.execute_command('multi_zdel', name, *keys)
+        return True
 
     def zclear(self, name: str):
         result = self.execute_command('zclear', name)
