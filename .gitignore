@@ -11,6 +11,6 @@ notes.txt
 dist
 build
 target
-py_profiler.egg-info
+*.egg-info
 *.iml
 .pypirc

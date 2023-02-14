@@ -64,11 +64,11 @@ class SsdbSortedSet(BaseSsdbSortedSet):
 
     def zrank(self, name: str, key: str) -> int:
         result = self.execute_command('zrank', name, key)
-        return int(result)
+        return int(result) if result is not None else None
 
     def zrrank(self, name: str, key: str) -> int:
         result = self.execute_command('zrrank', name, key)
-        return int(result)
+        return int(result) if result is not None else None
 
     def zrange(self, name: str, offset: int, size: int) -> List[Tuple[str, float]]:
         result = self.execute_command('zrange', name, offset, size)
@@ -90,7 +90,7 @@ class SsdbSortedSet(BaseSsdbSortedSet):
         if len(ranks) > 0:
             start_rank, end_rank = max(0, min(ranks)), max(ranks)
             response = self.execute_command('zrange', name, start_rank, end_rank + 1)
-            rank_to_id_map = SsdbResponseUtils.to_rank_to_id_map(response, start_rank)
+            rank_to_id_map = SsdbResponseUtils.to_rank_to_id_map(response, ranks, start_rank)
             for rank in ranks:
                 if rank in rank_to_id_map.keys():
                     actual_result_map[rank] = rank_to_id_map[rank]

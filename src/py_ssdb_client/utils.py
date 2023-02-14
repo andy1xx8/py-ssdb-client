@@ -76,13 +76,17 @@ class SsdbResponseUtils:
         return result_dict
 
     @classmethod
-    def to_rank_to_id_map(cls, response, start_rank: int) -> Dict[int, str]:
+    def to_rank_to_id_map(cls, response, ranks: List[int], start_rank: int) -> Dict[int, str]:
         result_dict = {}
+
+        set_ranks = set(ranks)
         for i, (k, v) in enumerate(zip(response[::2], response[1::2])):
             try:
                 id = k.decode("utf-8")
                 score = float(v.decode('utf-8'))
-                result_dict[start_rank + i] = id
+                rank = start_rank + i
+                if rank in set_ranks:
+                    result_dict[start_rank + i] = id
             except Exception as e:
                 logging.error(f"to_map: {get_msg(e)}")
 
