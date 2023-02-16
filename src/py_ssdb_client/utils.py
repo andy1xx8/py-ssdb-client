@@ -83,11 +83,11 @@ class SsdbResponseUtils:
         for i, (k, v) in enumerate(zip(response[::2], response[1::2])):
             try:
                 id = k.decode("utf-8")
-                score = float(v.decode('utf-8'))
+                # score = float(v.decode('utf-8'))
                 rank = start_rank + i
                 if rank in set_ranks:
                     result_dict[start_rank + i] = id
             except Exception as e:
-                logging.error(f"to_map: {get_msg(e)}")
+                logging.error(f"to_rank_to_id_map: {get_msg(e)}")
 
         return result_dict

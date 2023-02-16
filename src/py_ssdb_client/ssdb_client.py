@@ -21,6 +21,7 @@ class SsdbClient(SsdbKV, SsdbHash, SsdbSortedSet):
         info = self.info()
         print('SSDB info:')
         print(json.dumps(info, ensure_ascii=False, indent=2))
+        print('----------')
 
     def auth(self, password: str) -> bool:
         result = self.ssdb.execute_command('auth', password)
